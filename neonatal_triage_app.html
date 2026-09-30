@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NeoTriage · GA-Fuzzy Neonatal Risk Engine</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f6fb;--card:#fff;--ink:#0b1730;--mut:#5b6b86;--line:#dbe3f0;--acc:#0284c7;--low:#16a34a;--watch:#d97706;--high:#ea580c;--crit:#dc2626;--glow:transparent}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060a15;--card:rgba(255,255,255,.055);--ink:#e8efff;--mut:#8a9bbd;--line:rgba(255,255,255,.11);--acc:#38bdf8;--low:#34d399;--watch:#fbbf24;--high:#fb923c;--crit:#f43f5e;--glow:rgba(56,189,248,.16)}}
+:root[data-theme="dark"]{--bg:#060a15;--card:rgba(255,255,255,.055);--ink:#e8efff;--mut:#8a9bbd;--line:rgba(255,255,255,.11);--acc:#38bdf8;--low:#34d399;--watch:#fbbf24;--high:#fb923c;--crit:#f43f5e;--glow:rgba(56,189,248,.16)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);background-image:radial-gradient(900px 500px at 15% -10%,var(--glow),transparent),radial-gradient(700px 400px at 100% 10%,var(--glow),transparent);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+h1{margin:0;font-size:clamp(22px,4vw,32px);letter-spacing:-.02em;background:linear-gradient(90deg,var(--acc),var(--low));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);font-size:13px}
+.ecg{flex:1;min-width:160px;height:38px}
+.ecg path{fill:none;stroke:var(--acc);stroke-width:2;stroke-dasharray:260;stroke-dashoffset:260;animation:ecg 2.4s linear infinite;filter:drop-shadow(0 0 4px var(--acc))}
+@keyframes ecg{to{stroke-dashoffset:-260}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+h2{margin:0 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:7px 13px;transition:.15s}
+button:hover{border-color:var(--acc);box-shadow:0 0 12px var(--glow);transform:translateY(-1px)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:12px;color:var(--mut)}
+.in{display:flex;align-items:center;margin-top:4px;border:1px solid var(--line);border-radius:12px;padding:0 10px;background:rgba(127,127,127,.06)}
+.in:focus-within{border-color:var(--acc);box-shadow:0 0 0 3px var(--glow)}
+input{width:100%;min-width:0;border:0;background:transparent;color:var(--ink);font:600 16px system-ui,sans-serif;padding:10px 0;outline:0}
+.u{font-size:11px;color:var(--mut);white-space:nowrap;margin-left:6px}
+.note{font-size:12px;color:var(--mut);margin-top:12px}
+.gauge{width:100%;max-width:340px;display:block;margin:0 auto}
+#needle{transform-origin:100px 100px;transition:transform .9s cubic-bezier(.2,1.4,.3,1)}
+.badge{display:table;margin:2px auto 8px;padding:6px 20px;border-radius:999px;font-weight:800;letter-spacing:.12em;font-size:18px;color:#fff;transition:background .4s}
+.verdict{text-align:center;font-weight:600}
+.pulse{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 26px 4px var(--c)}}
+.stats{display:flex;justify-content:center;gap:22px;margin:10px 0 4px;color:var(--mut);font-size:12px;text-align:center}
+.stats b{display:block;color:var(--ink);font-size:18px}
+.why{margin-top:14px}
+.row{display:grid;grid-template-columns:1fr 92px;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.bar{height:8px;border-radius:9px;background:rgba(127,127,127,.18);position:relative;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;transition:width .5s}
+.idle{color:var(--mut);text-align:center;padding:26px 0}
+footer{margin-top:16px;font-size:12px;color:var(--mut)}
+</style></head><body><div class="wrap">
+<header><div><h1>NeoTriage</h1><div class="sub">GA-selected features · fuzzy rule engine · runs entirely in your browser</div></div>
+<svg class="ecg" viewBox="0 0 260 38" preserveAspectRatio="none"><path d="M0 20 H60 l6-3 6 3 H90 l5 14 7-30 6 24 4-7 H150 l6-3 6 3 H260"/></svg></header>
+<div class="grid">
+<section class="card"><h2>Patient values</h2>
+<div class="presets" id="presets"></div>
+<div class="fields" id="fields"></div>
+<div class="note">Leave a box empty if the reading is unavailable. The engine treats it as missing evidence, not as zero.</div></section>
+<section class="card"><h2>Risk assessment</h2><div id="out"></div></section></div>
+<footer>Research prototype trained on synthetic neonatal data. Not a medical device; do not use for clinical decisions. Units must match the training data.</footer></div>
+<script>
+const M={"features":["spo2","mean_bp","hrv_rmssd","apnea_per_hr","cap_refill_s","lactate","crp","gestational_age_wk","birth_weight_g"],"knots":[[92.45810533351785,94.80050139595197,96.75517610983444,99.05338045945044],[35.31048448630516,41.84178544935372,47.48373221132752,53.816963714158476],[19.060755028261756,26.495382744869843,32.86760351875024,40.13650361606741],[0.33475062379827414,0.6381594172421602,1.0940601546860291,2.1007765178169158],[1.3880222698096765,1.843478430332239,2.232218015999621,2.7135084326044474],[1.163973210910113,1.6121706808761398,2.1457284184179555,2.997153394024921],[1.0999719644954162,2.271060626386534,4.323781924601127,9.070866227337516],[35.15069431849735,37.08649361244358,38.69453444506107,40.48040930887085],[2628.494103523846,3118.3170294542915,3534.4511332159286,4008.3982321652197]],"rules":[[5,2,6,2],[0,1,7,1],[1,0,4,2],[7,2,-1,0],[0,0,3,2],[4,1,8,1],[0,2,-1,0],[4,0,-1,0],[8,2,-1,0],[7,0,8,0],[0,1,2,2],[3,0,-1,0],[2,0,5,2],[3,1,4,0],[0,2,7,1],[5,0,6,1]],"weights":[6.091267578930051,-1.4209611918149394,3.7246002026665805,-1.6080184389866854,2.4994093009163625,-1.3335505272719093,-1.3227560349903438,-1.249813184548603,-1.2185014258557159,0.8227832722562718,-1.4028419764120716,-0.9414388856341851,1.1350015664617106,-1.2437766451200536,-1.0061282770068396,-0.8411319276248659],"threshold":-2.671329278608236,"tier_cuts":[-2.671329278608236,-0.3862330122185045,2.1239574032631867],"tier_names":["LOW","WATCH","HIGH","CRITICAL"]};
+const FD={spo2:["SpO₂","%",96],mean_bp:["Mean BP","mmHg",45],hrv_rmssd:["HRV (RMSSD)","ms",30],apnea_per_hr:["Apnea events","/hr",0.8],cap_refill_s:["Cap. refill","s",2],lactate:["Lactate","mmol/L",1.8],crp:["CRP","mg/L",3],gestational_age_wk:["Gestational age","wk",38],birth_weight_g:["Birth weight","g",3200]};
+const TERM=["LOW","NORMAL","HIGH"],TIERS=M.tier_names,COL=["var(--low)","var(--watch)","var(--high)","var(--crit)"];
+const PRE={"Stable term baby":[98.5,42.2,24.7,0.8,1.3,2.35,1.5,42,4223],"Septic baby":[90.4,34.2,17.8,0.4,3.5,4.2,8.9,37.7,3202],"Preterm, borderline":[94.1,42.1,23.8,1.5,2.2,2.2,13.4,35.2,2107],"Septic · labs missing":[90.4,34.2,17.8,0.4,3.5,"","",37.7,3202]};
+const cl=x=>Math.min(1,Math.max(0,x)),$=s=>document.querySelector(s);
+$("#fields").innerHTML=M.features.map(f=>`<div><label>${FD[f][0]}<div class="in"><input id="f_${f}" type="number" step="any" inputmode="decimal" placeholder="${FD[f][2]}"><span class="u">${FD[f][1]}</span></div></label></div>`).join("");
+$("#presets").innerHTML=Object.keys(PRE).map(k=>`<button data-p="${k}">${k}</button>`).join("")+`<button data-p="">Clear</button>`;
+$("#presets").onclick=e=>{const p=e.target.dataset.p;if(p===undefined)return;M.features.forEach((f,i)=>$("#f_"+f).value=p?PRE[p][i]:"");run()};
+document.querySelectorAll("input").forEach(i=>i.oninput=run);
+function infer(v){const mem=v.map((x,i)=>{if(isNaN(x))return[NaN,NaN,NaN];const[a,b,c,d]=M.knots[i],lo=cl((b-x)/(b-a)),hi=cl((x-c)/(d-c));return[lo,1-lo-hi,hi]});
+let raw=0;const parts=[];M.rules.forEach(([f1,t1,f2,t2],r)=>{let s=mem[f1][t1];if(f2>=0)s=Math.min(s,mem[f2][t2]);if(isNaN(s))s=0;const c=s*M.weights[r];raw+=c;
+if(Math.abs(c)>.05){const n=n=>FD[M.features[n]][0];parts.push({c,t:`${n(f1)} is ${TERM[t1]}`+(f2>=0?` & ${n(f2)} is ${TERM[t2]}`:"")})}});
+return{raw,parts,tier:M.tier_cuts.filter(c=>raw>=c).length,flag:raw>=M.threshold}}
+function pos(raw,tier){const C=M.tier_cuts,lo=tier==0?C[0]-4:C[tier-1],hi=tier==3?C[2]+6:C[tier];return cl((tier+cl((raw-lo)/(hi-lo)))/4)}
+const P=(a,r)=>[100+r*Math.cos(a*Math.PI/180),100+r*Math.sin(a*Math.PI/180)];
+const arcs=[0,1,2,3].map(i=>{const[x0,y0]=P(180+i*45+1.5,80),[x1,y1]=P(225+i*45-1.5,80);return`<path d="M${x0} ${y0} A80 80 0 0 1 ${x1} ${y1}" stroke="${COL[i]}" stroke-width="14" fill="none" stroke-linecap="round" opacity=".9"/>`}).join("");
+$("#out").innerHTML=`<svg class="gauge" viewBox="0 0 200 118">${arcs}<g id="needle"><line x1="100" y1="100" x2="34" y2="100" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></g><circle cx="100" cy="100" r="7" fill="var(--ink)"/></svg><div id="res"></div>`;
+function run(){const v=M.features.map(f=>parseFloat($("#f_"+f).value)),n=v.filter(x=>!isNaN(x)).length;
+if(!n){$("#needle").style.transform="rotate(0deg)";$("#res").innerHTML=`<div class="idle">Enter patient values or pick a preset above ✨</div>`;return}
+const r=infer(v),col=COL[r.tier];$("#needle").style.transform=`rotate(${pos(r.raw,r.tier)*180}deg)`;
+const top=r.parts.sort((a,b)=>Math.abs(b.c)-Math.abs(a.c)).slice(0,6),mx=Math.max(...top.map(p=>Math.abs(p.c)),1);
+$("#res").innerHTML=`<div class="badge ${r.tier>1?"pulse":""}" style="background:${col};--c:${col}">${TIERS[r.tier]}</div>
+<div class="verdict" style="color:${r.flag?col:"var(--low)"}">${r.flag?"⚠ Escalate for clinical review":"✓ Below escalation threshold"}</div>
+<div class="stats"><div><b>${r.raw.toFixed(2)}</b>risk score</div><div><b>${n}/${v.length}</b>inputs given</div><div><b>${(M.threshold).toFixed(2)}</b>flag threshold</div></div>
+${n<5?`<div class="note" style="text-align:center">Few inputs given: with little evidence the engine errs on the side of flagging.</div>`:""}
+<div class="why"><h2>Why this result</h2>${top.length?top.map(p=>`<div class="row"><span>${p.t}</span><div class="bar"><i style="${p.c>0?"left":"right"}:0;width:${Math.abs(p.c)/mx*100}%;background:${p.c>0?"var(--crit)":"var(--low)"}"></i></div></div>`).join("")+`<div class="note">Red pushes risk up, green pushes it down.</div>`:`<div class="note">No rule fired strongly.</div>`}</div>`}
+run();
+</script></body></html>
