@@ -1,0 +1,109 @@
+==============================================================================
+Cohort: 20000 neonates, 27 candidate features, critical prevalence 7.885%
+  train: n=10000  critical= 789 (7.89%)
+  val  : n= 5000  critical= 394 (7.88%)
+  test : n= 5000  critical= 394 (7.88%)
+Class-collapse reference: predicting 'not critical' for all -> accuracy 92.1%, critical recall 0.0%
+==============================================================================
+gen  0 | best 0.3736 mean 0.2511 | AUROC 0.9206 rec 0.9898 spec 0.284 k=8 | gate-pass 39/40 uniq 40 | 3.4s
+gen  1 | best 0.3884 mean 0.3327 | AUROC 0.9132 rec 0.9873 spec 0.340 k=8 | gate-pass 40/40 uniq 38 | 6.2s
+gen  2 | best 0.4332 mean 0.3492 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 40/40 uniq 38 | 9.3s
+gen  3 | best 0.4332 mean 0.2156 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 37/40 uniq 38 | 12.6s
+gen  4 | best 0.4332 mean 0.3208 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 39/40 uniq 39 | 16.1s
+gen  5 | best 0.4332 mean 0.3757 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 40/40 uniq 39 | 19.9s
+gen  6 | best 0.4332 mean 0.3275 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 39/40 uniq 39 | 23.3s
+gen  7 | best 0.4332 mean 0.3842 | AUROC 0.9476 rec 1.0000 spec 0.476 k=10 | gate-pass 40/40 uniq 34 | 26.2s
+gen  8 | best 0.4336 mean 0.3948 | AUROC 0.9503 rec 0.9975 spec 0.441 k=9 | gate-pass 40/40 uniq 35 | 29.1s
+gen  9 | best 0.4336 mean 0.3403 | AUROC 0.9503 rec 0.9975 spec 0.441 k=9 | gate-pass 39/40 uniq 36 | 32.0s
+gen 10 | best 0.4352 mean 0.3861 | AUROC 0.9474 rec 0.9949 spec 0.476 k=10 | gate-pass 40/40 uniq 35 | 34.9s
+gen 11 | best 0.4352 mean 0.3943 | AUROC 0.9474 rec 0.9949 spec 0.476 k=10 | gate-pass 40/40 uniq 33 | 37.9s
+gen 12 | best 0.4396 mean 0.4011 | AUROC 0.9518 rec 1.0000 spec 0.489 k=9 | gate-pass 40/40 uniq 31 | 40.6s
+gen 13 | best 0.4396 mean 0.4008 | AUROC 0.9518 rec 1.0000 spec 0.489 k=9 | gate-pass 40/40 uniq 33 | 43.3s
+gen 14 | best 0.4396 mean 0.3944 | AUROC 0.9518 rec 1.0000 spec 0.489 k=9 | gate-pass 40/40 uniq 36 | 46.1s
+gen 15 | best 0.4396 mean 0.3978 | AUROC 0.9518 rec 1.0000 spec 0.489 k=9 | gate-pass 40/40 uniq 34 | 49.0s
+gen 16 | best 0.4402 mean 0.3540 | AUROC 0.9522 rec 0.9975 spec 0.484 k=9 | gate-pass 39/40 uniq 34 | 52.0s
+gen 17 | best 0.4402 mean 0.4016 | AUROC 0.9522 rec 0.9975 spec 0.484 k=9 | gate-pass 40/40 uniq 36 | 54.7s
+gen 18 | best 0.4407 mean 0.4118 | AUROC 0.9549 rec 1.0000 spec 0.484 k=9 | gate-pass 40/40 uniq 32 | 56.9s
+gen 19 | best 0.4434 mean 0.4078 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 40/40 uniq 35 | 59.4s
+gen 20 | best 0.4434 mean 0.3546 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 39/40 uniq 35 | 62.0s
+gen 21 | best 0.4434 mean 0.3498 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 39/40 uniq 34 | 64.4s
+gen 22 | best 0.4465 mean 0.4079 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 40/40 uniq 33 | 66.9s
+gen 23 | best 0.4465 mean 0.3447 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 39/40 uniq 39 | 70.8s
+gen 24 | best 0.4465 mean 0.3446 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 39/40 uniq 37 | 73.7s
+gen 25 | best 0.4465 mean 0.3970 | AUROC 0.9540 rec 0.9924 spec 0.560 k=10 | gate-pass 40/40 uniq 39 | 76.4s
+gen 26 | best 0.4611 mean 0.4018 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 38 | 79.7s
+gen 27 | best 0.4611 mean 0.4047 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 37 | 82.7s
+gen 28 | best 0.4611 mean 0.3961 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 39 | 85.6s
+gen 29 | best 0.4611 mean 0.4035 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 39 | 88.4s
+gen 30 | best 0.4611 mean 0.3563 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 39/40 uniq 37 | 91.6s
+gen 31 | best 0.4611 mean 0.4092 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 33 | 94.3s
+gen 32 | best 0.4611 mean 0.4075 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 33 | 96.5s
+gen 33 | best 0.4611 mean 0.4030 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 37 | 98.9s
+gen 34 | best 0.4611 mean 0.4073 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 34 | 101.7s
+gen 35 | best 0.4611 mean 0.4183 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 29 | 103.3s
+gen 36 | best 0.4611 mean 0.4173 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 27 | 105.0s
+gen 37 | best 0.4611 mean 0.4186 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 30 | 106.7s
+gen 38 | best 0.4611 mean 0.4157 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 31 | 108.2s
+gen 39 | best 0.4611 mean 0.4150 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 31 | 109.9s
+gen 40 | best 0.4611 mean 0.4061 | AUROC 0.9553 rec 1.0000 spec 0.563 k=9 | gate-pass 40/40 uniq 33 | 111.9s
+
+==============================================================================
+FINAL SOLUTION
+Selected (9): spo2[physio], mean_bp[physio], hrv_rmssd[physio], apnea_per_hr[physio], cap_refill_s[physio], lactate[lab], crp[lab], gestational_age_wk[static], birth_weight_g[static]
+Constraint check -> valid=True, static=2/2, institutional=0, physiological=7/9
+FINAL FITNESS (validation): 0.4611   [AUROC 0.9553, recall 1.0000, spec 0.5627, cost 0.531, red 0.006, rob 0.0550]
+
+Rule base:
+  IF lactate is HIGH AND crp is HIGH THEN risk +6.09 log-odds
+  IF spo2 is NORMAL AND gestational_age_wk is NORMAL THEN risk -1.42 log-odds
+  IF mean_bp is LOW AND cap_refill_s is HIGH THEN risk +3.72 log-odds
+  IF gestational_age_wk is HIGH THEN risk -1.61 log-odds
+  IF spo2 is LOW AND apnea_per_hr is HIGH THEN risk +2.50 log-odds
+  IF cap_refill_s is NORMAL AND birth_weight_g is NORMAL THEN risk -1.33 log-odds
+  IF spo2 is HIGH THEN risk -1.32 log-odds
+  IF cap_refill_s is LOW THEN risk -1.25 log-odds
+  IF birth_weight_g is HIGH THEN risk -1.22 log-odds
+  IF gestational_age_wk is LOW AND birth_weight_g is LOW THEN risk +0.82 log-odds
+  IF spo2 is NORMAL AND hrv_rmssd is HIGH THEN risk -1.40 log-odds
+  IF apnea_per_hr is LOW THEN risk -0.94 log-odds
+  IF hrv_rmssd is LOW AND lactate is HIGH THEN risk +1.14 log-odds
+  IF apnea_per_hr is NORMAL AND cap_refill_s is LOW THEN risk -1.24 log-odds
+  IF spo2 is HIGH AND gestational_age_wk is NORMAL THEN risk -1.01 log-odds
+  IF lactate is LOW AND crp is NORMAL THEN risk -0.84 log-odds
+
+HELD-OUT TEST
+  AUROC              : 0.9496
+  Critical recall    : 0.9898  (95% Wilson CI 0.9742-0.9960; 4 missed of 394)
+  Specificity        : 0.5586
+  >=98% recall gate  : PASS
+
+Risk tiers (test):
+  tier          n  critical    rate
+  LOW        2577         4    0.2%
+  WATCH      1502        37    2.5%
+  HIGH        570       118   20.7%
+  CRITICAL    351       235   67.0%
+
+Robustness (test, fixed deployed threshold):
+  scenario                                 AUROC  recall
+  random 0% missing                       0.9496  0.9898
+  random 10% missing                      0.9257  0.9797
+  random 20% missing                      0.8979  0.9832
+  random 30% missing                      0.8687  0.9812
+  random 40% missing                      0.8326  0.9868
+  sensor lost: spo2                       0.9086  0.9822
+  sensor lost: mean_bp                    0.9372  0.9772
+  sensor lost: hrv_rmssd                  0.9434  0.9873
+  sensor lost: apnea_per_hr               0.9319  0.9797
+  sensor lost: cap_refill_s               0.9154  0.9822
+  sensor lost: lactate                    0.9036  0.9365
+  sensor lost: crp                        0.9197  0.9670
+  sensor lost: gestational_age_wk         0.9333  0.9949
+  sensor lost: birth_weight_g             0.9352  0.9873
+
+Inference latency: 0.035 ms / patient (16 rules, 9 features)
+
+Baseline (top-10 univariate, no bounds): fitness 0.4191, AUROC 0.9450, valid=True, picks: ['heart_rate', 'spo2', 'apnea_per_hr', 'cap_refill_s', 'lactate', 'blood_ph', 'crp', 'gestational_age_wk', 'spo2_secondary', 'birth_weight_g']
+GA improvement: gen0 best 0.3736 -> final 0.4611 (gen0 mean 0.2511 -> final mean 0.4061)
+Unique fitness evaluations: 1091   Total runtime: 112.6s
+Saved trained model -> neonatal_model.json
